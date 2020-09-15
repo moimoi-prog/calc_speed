@@ -2,7 +2,7 @@ import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:calc_speed/module/PokemonModule.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import 'ResultState.dart';
+import '../state/ResultState.dart';
 
 // ------------------------------------
 // クラス名　: ResultStateNotifier

@@ -5,14 +5,13 @@
 
 import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:calc_speed/enum/ResultCode.dart';
-import 'package:calc_speed/notifier/result/ResultNotifier.dart';
-import 'package:calc_speed/notifier/myself/MyselfState.dart';
-import 'package:calc_speed/notifier/opponent/OpponentNotifier.dart';
-import 'package:calc_speed/notifier/opponent/OpponentState.dart';
+import 'package:calc_speed/notifier/ResultNotifier.dart';
+import 'package:calc_speed/notifier/MyselfNotifier.dart';
+import 'package:calc_speed/state/MyselfState.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<ResultCode> opponentSettingDialog(BuildContext context) async{
+Future<ResultCode> myselfSettingDialog(BuildContext context) async{
   /* フォームキー      */
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -25,7 +24,7 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
             children: [
               SingleChildScrollView(
                 child: AlertDialog(
-                  title: Text("相手のポケモンパラメータ設定"),
+                  title: Text("自分のポケモンパラメータ設定"),
                   content: Form(
                     key: _formKey,
                     child: Column(
@@ -47,30 +46,30 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
                                   Expanded(
                                     child: RadioListTile<PersonalityType>(
                                       title: Text("↓"),
-                                      groupValue: Provider.of<OpponentState>(context, listen: true).personalityType,
+                                      groupValue: Provider.of<MyselfState>(context, listen: true).personalityType,
                                       value: PersonalityType.descent,
                                       onChanged: (value) {
-                                        Provider.of<OpponentStateNotifier>(context, listen: false).setPersonalityType(value);
+                                        Provider.of<MyselfStateNotifier>(context, listen: false).setPersonalityType(value);
                                       },
                                     ),
                                   ),
                                   Expanded(
                                     child: RadioListTile<PersonalityType>(
                                       title: Text("-"),
-                                      groupValue: Provider.of<OpponentState>(context, listen: true).personalityType,
+                                      groupValue: Provider.of<MyselfState>(context, listen: true).personalityType,
                                       value: PersonalityType.uncorrected,
                                       onChanged: (value) {
-                                        Provider.of<OpponentStateNotifier>(context, listen: false).setPersonalityType(value);
+                                        Provider.of<MyselfStateNotifier>(context, listen: false).setPersonalityType(value);
                                       },
                                     ),
                                   ),
                                   Expanded(
                                     child: RadioListTile<PersonalityType>(
                                       title: Text("↑"),
-                                      groupValue: Provider.of<OpponentState>(context, listen: true).personalityType,
+                                      groupValue: Provider.of<MyselfState>(context, listen: true).personalityType,
                                       value: PersonalityType.rise,
                                       onChanged: (value) {
-                                        Provider.of<OpponentStateNotifier>(context, listen: false).setPersonalityType(value);
+                                        Provider.of<MyselfStateNotifier>(context, listen: false).setPersonalityType(value);
                                       },
                                     ),
                                   ),
@@ -94,10 +93,10 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(labelText: "素早さ"),
                                   keyboardType: TextInputType.number,
-                                  controller: Provider.of<OpponentState>(context, listen: true).individualController,
+                                  controller: Provider.of<MyselfState>(context, listen: true).individualController,
                                   // テキストボックスに値を入力するたびに起動
                                   onChanged: (value) {
-                                    Provider.of<OpponentStateNotifier>(context, listen: false).setIndividual(int.parse(value));
+                                    Provider.of<MyselfStateNotifier>(context, listen: false).setIndividual(int.parse(value));
                                     _formKey.currentState.validate();
                                   },
                                   // 存在するポケモン名が入力されているかをチェック
@@ -131,10 +130,10 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(labelText: "素早さ"),
                                   keyboardType: TextInputType.number,
-                                  controller: Provider.of<OpponentState>(context, listen: true).effortValueController,
+                                  controller: Provider.of<MyselfState>(context, listen: true).effortValueController,
                                   // テキストボックスに値を入力するたびに起動
                                   onChanged: (value) {
-                                    Provider.of<OpponentStateNotifier>(context, listen: false).setEffort(int.parse(value));
+                                    Provider.of<MyselfStateNotifier>(context, listen: false).setEffort(int.parse(value));
                                     _formKey.currentState.validate();
                                   },
                                   // 存在するポケモン名が入力されているかをチェック
@@ -156,7 +155,7 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
                               icon: Icon(Icons.add),
                               color: Colors.white,
                               onPressed: () {
-                                Provider.of<OpponentStateNotifier>(context, listen: false).addEffort(4);
+                                Provider.of<MyselfStateNotifier>(context, listen: false).addEffort(4);
                                 _formKey.currentState.validate();
                               },
                             ),
@@ -164,7 +163,7 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
                               icon: Icon(Icons.remove),
                               color: Colors.white,
                               onPressed: () {
-                                Provider.of<OpponentStateNotifier>(context, listen: false).removeEffort(4);
+                                Provider.of<MyselfStateNotifier>(context, listen: false).removeEffort(4);
                                 _formKey.currentState.validate();
                               },
                             ),
@@ -179,7 +178,7 @@ Future<ResultCode> opponentSettingDialog(BuildContext context) async{
                         onPressed: () async{
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
-                            Provider.of<ResultStateNotifier>(context, listen: false).changeOpponent(Provider.of<OpponentState>(context, listen: false).nameController.text, Provider.of<OpponentState>(context, listen: false).correnction, Provider.of<OpponentState>(context, listen: false).scarfFlag, Provider.of<OpponentState>(context, listen: false).tailWindFlag, Provider.of<OpponentState>(context, listen: false).paralysisFlag, Provider.of<OpponentState>(context, listen: false).weatherFlag, int.parse(Provider.of<OpponentState>(context, listen: false).individualController.text), int.parse(Provider.of<OpponentState>(context, listen: false).effortValueController.text), Provider.of<OpponentState>(context, listen: false).personalityType);
+                            Provider.of<ResultStateNotifier>(context, listen: false).changeMyself(Provider.of<MyselfState>(context, listen: false).nameController.text, Provider.of<MyselfState>(context, listen: false).correnction, Provider.of<MyselfState>(context, listen: false).scarfFlag, Provider.of<MyselfState>(context, listen: false).tailWindFlag, Provider.of<MyselfState>(context, listen: false).paralysisFlag, Provider.of<MyselfState>(context, listen: false).weatherFlag, int.parse(Provider.of<MyselfState>(context, listen: false).individualController.text), int.parse(Provider.of<MyselfState>(context, listen: false).effortValueController.text), Provider.of<MyselfState>(context, listen: false).personalityType);
                             Navigator.of(context).pop();
                           }
                         }),

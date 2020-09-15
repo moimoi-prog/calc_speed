@@ -2,7 +2,7 @@ import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:flutter/material.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import 'OpponentState.dart';
+import '../state/OpponentState.dart';
 // ------------------------------------
 // クラス名　: OpponentStateNotifier
 // クラス概要: 相手ComponentNotifier

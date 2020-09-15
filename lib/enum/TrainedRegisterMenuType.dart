@@ -1,4 +1,0 @@
-enum TrainedRegisterMenuType {
-  register,
-  release,
-}

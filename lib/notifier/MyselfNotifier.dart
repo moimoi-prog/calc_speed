@@ -2,7 +2,7 @@ import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:flutter/material.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import 'MyselfState.dart';
+import '../state/MyselfState.dart';
 
 // ------------------------------------
 // クラス名　: MyselfStateNotifier

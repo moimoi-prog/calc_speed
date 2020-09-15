@@ -1,7 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'search/SearchTab.dart';
+import 'MainBody.dart';
 
+// ----------------------------------
+// クラス名　: MainPage
+// 処理概要　: メイン画面
+// ----------------------------------
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class MainPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("素早さ計算"),
         ),
-        body: SearchTab(),
+        body: MainBody(),
       ),
     );
   }

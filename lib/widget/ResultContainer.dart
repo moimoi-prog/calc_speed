@@ -1,11 +1,13 @@
-import 'package:calc_speed/notifier/result/ResultState.dart';
+import 'package:calc_speed/state/ResultState.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ----------------------------------
+// クラス名　: ResultContainer
+// 処理概要　: 自分ポケモン情報入力欄
+// ----------------------------------
 class ResultContainer extends StatelessWidget {
-  ResultContainer({Key key, this.title}) : super(key: key);
-
-  final String title;
+  ResultContainer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
