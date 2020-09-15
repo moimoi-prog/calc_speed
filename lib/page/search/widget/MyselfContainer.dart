@@ -5,7 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 import 'package:calc_speed/module/MainModule.dart';
 import 'package:calc_speed/module/PokemonModule.dart';
-import 'package:calc_speed/notifier/ResultNotifier.dart';
+import 'package:calc_speed/notifier/result/ResultNotifier.dart';
 import 'package:calc_speed/notifier/myself/MyselfNotifier.dart';
 import 'package:calc_speed/notifier/myself/MyselfState.dart';
 

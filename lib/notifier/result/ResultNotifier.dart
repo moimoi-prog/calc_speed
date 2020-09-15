@@ -2,51 +2,35 @@ import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:calc_speed/module/PokemonModule.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-// ------------------------------------
-// クラス名　: ResultState
-// クラス概要: 結果表示ComponentState
-// ------------------------------------
-class ResultState {
-  // 変数の宣言
-  // 相手用
-  /* 最遅 　*/ final int opponentSlowest;
-
-  /* 無補正 */
-  final int opponentUncorrected;
-
-  /* 準速 　*/
-  final int opponentFaster;
-
-  /* 最速 　*/
-  final int opponentFastest;
-
-  // 自分用
-  /* 最遅 　*/
-  final int myselfSlowest;
-
-  /* 無補正 */
-  final int myselfUncorrected;
-
-  /* 準速 　*/
-  final int myselfFaster;
-
-  /* 最速　 */
-  final int myselfFastest;
-
-  // コンストラクタ
-  ResultState(this.opponentSlowest, this.opponentUncorrected, this.opponentFaster, this.opponentFastest, this.myselfSlowest, this.myselfUncorrected, this.myselfFaster, this.myselfFastest);
-}
+import 'ResultState.dart';
 
 // ------------------------------------
 // クラス名　: ResultStateNotifier
 // クラス概要: 結果表示ComponentNotifier
 // ------------------------------------
-class ResultStateNotifier extends StateNotifier<ResultState> {
+class ResultStateNotifier extends StateNotifier<ResultState> with LocatorMixin{
   // 初期化
-  ResultStateNotifier() : super(ResultState(0, 0, 0, 0, 0, 0, 0, 0));
+  ResultStateNotifier() : super(ResultStateData());
 
+  // 初期処理
+  void initState() {
+    super.initState();
+
+    state = ResultState(
+      opponentSlowest: 0,
+      opponentUncorrected: 0,
+      opponentFaster: 0,
+      opponentFastest: 0,
+      myselfSlowest: 0,
+      myselfUncorrected: 0,
+      myselfFaster: 0,
+      myselfFastest: 0,
+    );
+  }
   // 相手の値を変更
   void changeOpponent(String name, int correction, bool scarf, bool wind, bool paralisys, bool weather, [int individualValue, int effortSpeedValue, PersonalityType personality]) async {
+    final currentState = state;
+
     // 個体値を計算
     int slowestIndividual = individualValue == null ? 0 : individualValue;
     int uncorrectedIndividual = individualValue == null ? 31 : individualValue;
@@ -102,14 +86,34 @@ class ResultStateNotifier extends StateNotifier<ResultState> {
       int uncorrected = await calcSpeed(name, uncorrectedIndividual, uncorrectedEffort, uncorrectedPersonality, correction, scarf, wind, paralisys, weather);
       int faster = await calcSpeed(name, fasterIndividual, fasterEffort, fasterPersonality, correction, scarf, wind, paralisys, weather);
       int fastest = await calcSpeed(name, fastestIndividual, fastestEffort, fastestPersonality, correction, scarf, wind, paralisys, weather);
-      state = ResultState(slowest, uncorrected, faster, fastest, state.myselfSlowest, state.myselfUncorrected, state.myselfFaster, state.myselfFastest);
+      state = state.copyWith(
+        opponentSlowest: slowest,
+        opponentUncorrected: uncorrected,
+        opponentFaster: faster,
+        opponentFastest: fastest,
+        myselfSlowest: currentState.myselfSlowest,
+        myselfUncorrected: currentState.myselfUncorrected,
+        myselfFaster: currentState.myselfFaster,
+        myselfFastest: currentState.myselfFastest,
+      );
     } else {
-      state = ResultState(0, 0, 0, 0, state.myselfSlowest, state.myselfUncorrected, state.myselfFaster, state.myselfFastest);
+      state = state.copyWith(
+        opponentSlowest: 0,
+        opponentUncorrected: 0,
+        opponentFaster: 0,
+        opponentFastest: 0,
+        myselfSlowest: currentState.myselfSlowest,
+        myselfUncorrected: currentState.myselfUncorrected,
+        myselfFaster: currentState.myselfFaster,
+        myselfFastest: currentState.myselfFastest,
+      );
     }
   }
 
   // 自分の値を変更
   void changeMyself(String name, int correction, bool scarf, bool wind, bool paralisys, bool weather, [int individualValue, int effortSpeedValue, PersonalityType personality]) async {
+    final currentState = state;
+
     // 個体値を計算
     int slowestIndividual = individualValue == null ? 0 : individualValue;
     int uncorrectedIndividual = individualValue == null ? 31 : individualValue;
@@ -165,9 +169,27 @@ class ResultStateNotifier extends StateNotifier<ResultState> {
       int uncorrected = await calcSpeed(name, uncorrectedIndividual, uncorrectedEffort, uncorrectedPersonality, correction, scarf, wind, paralisys, weather);
       int faster = await calcSpeed(name, fasterIndividual, fasterEffort, fasterPersonality, correction, scarf, wind, paralisys, weather);
       int fastest = await calcSpeed(name, fastestIndividual, fastestEffort, fastestPersonality, correction, scarf, wind, paralisys, weather);
-      state = ResultState(state.opponentSlowest, state.opponentUncorrected, state.opponentFaster, state.opponentFastest, slowest, uncorrected, faster, fastest);
+      state = state.copyWith(
+        opponentSlowest: currentState.opponentSlowest,
+        opponentUncorrected: currentState.opponentUncorrected,
+        opponentFaster: currentState.opponentFaster,
+        opponentFastest: currentState.opponentFastest,
+        myselfSlowest: slowest,
+        myselfUncorrected: uncorrected,
+        myselfFaster: faster,
+        myselfFastest: fastest,
+      );
     } else {
-      state = ResultState(state.opponentSlowest, state.opponentUncorrected, state.opponentFaster, state.opponentFastest, 0, 0, 0, 0);
+      state = state.copyWith(
+        opponentSlowest: currentState.opponentSlowest,
+        opponentUncorrected: currentState.opponentUncorrected,
+        opponentFaster: currentState.opponentFaster,
+        opponentFastest: currentState.opponentFastest,
+        myselfSlowest: 0,
+        myselfUncorrected: 0,
+        myselfFaster: 0,
+        myselfFastest: 0,
+      );
     }
   }
 }

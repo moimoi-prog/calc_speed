@@ -5,7 +5,7 @@
 
 import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:calc_speed/enum/ResultCode.dart';
-import 'package:calc_speed/notifier/ResultNotifier.dart';
+import 'package:calc_speed/notifier/result/ResultNotifier.dart';
 import 'package:calc_speed/notifier/myself/MyselfNotifier.dart';
 import 'package:calc_speed/notifier/myself/MyselfState.dart';
 import 'package:flutter/material.dart';

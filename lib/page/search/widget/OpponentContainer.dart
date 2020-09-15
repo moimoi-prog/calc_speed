@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:calc_speed/module/MainModule.dart';
 import 'package:calc_speed/module/PokemonModule.dart';
-import 'package:calc_speed/notifier/ResultNotifier.dart';
+import 'package:calc_speed/notifier/result/ResultNotifier.dart';
 import 'package:calc_speed/notifier/opponent/OpponentState.dart';
 import '../../../notifier/opponent/OpponentNotifier.dart';
 import 'package:provider/provider.dart';

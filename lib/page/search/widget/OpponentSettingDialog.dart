@@ -5,7 +5,7 @@
 
 import 'package:calc_speed/enum/PersonalityType.dart';
 import 'package:calc_speed/enum/ResultCode.dart';
-import 'package:calc_speed/notifier/ResultNotifier.dart';
+import 'package:calc_speed/notifier/result/ResultNotifier.dart';
 import 'package:calc_speed/notifier/myself/MyselfState.dart';
 import 'package:calc_speed/notifier/opponent/OpponentNotifier.dart';
 import 'package:calc_speed/notifier/opponent/OpponentState.dart';

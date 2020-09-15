@@ -1,6 +1,6 @@
+import 'package:calc_speed/notifier/result/ResultState.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:calc_speed/notifier/ResultNotifier.dart';
 
 class ResultContainer extends StatelessWidget {
   ResultContainer({Key key, this.title}) : super(key: key);

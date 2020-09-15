@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 
-import 'notifier/ResultNotifier.dart';
+import 'notifier/result/ResultNotifier.dart';
 import 'notifier/myself/MyselfNotifier.dart';
 import 'notifier/myself/MyselfState.dart';
 import 'notifier/opponent/OpponentNotifier.dart';
 import 'notifier/opponent/OpponentState.dart';
+import 'notifier/result/ResultState.dart';
 
 // ----------------------------------
 // メソッド名: main
